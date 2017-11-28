@@ -1,5 +1,6 @@
 fixtures:
   repositories:
+    python: "https://github.com/stankevich/puppet-python"
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
   symlinks:
     ephemeris: "#{source_dir}"
