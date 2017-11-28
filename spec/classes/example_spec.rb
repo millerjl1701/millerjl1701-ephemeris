@@ -13,18 +13,9 @@ describe 'ephemeris' do
 
           it { is_expected.to contain_class('ephemeris::install') }
           it { is_expected.to contain_class('ephemeris::config') }
-          it { is_expected.to contain_class('ephemeris::service') }
           it { is_expected.to contain_class('ephemeris::install').that_comes_before('Class[ephemeris::config]') }
-          it { is_expected.to contain_class('ephemeris::service').that_subscribes_to('Class[ephemeris::config]') }
 
           it { is_expected.to contain_package('ephemeris').with_ensure('present') }
-
-          it { is_expected.to contain_service('ephemeris').with(
-            'ensure'     => 'running',
-            'enable'     => 'true',
-            'hasstatus'  => 'true',
-            'hasrestart' => 'true',
-          ) }
         end
       end
     end
