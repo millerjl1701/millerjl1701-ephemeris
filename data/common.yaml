@@ -1,0 +1,7 @@
+---
+
+ephemeris::package_ensure: 'present'
+ephemeris::package_name: 'ephemeris'
+ephemeris::service_enable: true
+ephemeris::service_ensure: 'running'
+ephemeris::service_name: 'ephemeris'
