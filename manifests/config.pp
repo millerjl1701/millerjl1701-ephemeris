@@ -13,7 +13,7 @@ class ephemeris::config {
     group  => $ephemeris::virtualenv_group,
     mode   => $ephemeris::virtualenv_mode
   }
-  -> file { "$ephemeris::virtualenv_dir/requirements.txt":
+  -> file { "${ephemeris::virtualenv_dir}/requirements.txt":
     ensure  => present,
     owner   => $ephemeris::virtualenv_owner,
     group   => $ephemeris::virtualenv_group,
@@ -21,7 +21,7 @@ class ephemeris::config {
     content => template('ephemeris/requirements.txt.erb'),
   }
   -> python::requirements { 'ephemeris_pip_requirements':
-    requirements           => "$ephemeris::virtualenv_dir/requirements.txt",
+    requirements           => "${ephemeris::virtualenv_dir}/requirements.txt",
     virtualenv             => $ephemeris::virtualenv_dir,
     owner                  => $ephemeris::virtualenv_owner,
     group                  => $ephemeris::virtualenv_group,
