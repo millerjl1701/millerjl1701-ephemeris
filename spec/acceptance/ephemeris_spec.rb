@@ -37,5 +37,19 @@ describe 'ephemeris class' do
       it { should exist }
       it { should be_enabled }
     end
+
+    describe file('/root/ephemeris') do
+      it { should be_directory }
+      it { should be_owned_by 'root' }
+      it { should be_grouped_into 'root' }
+      it { should be_mode 750 }
+    end
+
+    describe file('/root/ephemeris/bin/activate') do
+      it { should be_file }
+      it { should be_owned_by 'root' }
+      it { should be_grouped_into 'root' }
+      it { should be_mode 644 }
+    end
   end
 end

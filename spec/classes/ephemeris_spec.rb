@@ -26,6 +26,13 @@ describe 'ephemeris' do
           ) }
 
           it { is_expected.to contain_package('python').with_ensure('present') }
+
+          it { is_expected.to contain_python__virtualenv('/root/ephemeris').with(
+            'ensure' => 'present',
+            'owner'  => 'root',
+            'group'  => 'root',
+            'mode'   => '0750',
+          ) }
         end
       end
     end
