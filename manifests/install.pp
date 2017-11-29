@@ -3,7 +3,12 @@
 # This class is called from the main ephemeris class for install.
 #
 class ephemeris::install {
-  package { $::ephemeris::package_name:
-    ensure => $::ephemeris::package_ensure,
+  if $ephemeris::manage_python {
+    class { 'python':
+      dev             => 'present',
+      manage_gunicorn => false,
+      use_epel        => false,
+      virtualenv      => 'present',
+    }
   }
 }

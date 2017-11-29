@@ -13,8 +13,28 @@ describe 'ephemeris class' do
       apply_manifest(pp, :catch_changes  => true)
     end
 
-    describe package('ephemeris') do
+    describe package('python') do
       it { should be_installed }
+    end
+
+    describe package('python2-pip') do
+      it { should be_installed }
+    end
+
+    describe package('python-devel') do
+      it { should be_installed }
+    end
+
+    describe package('python-gunicorn') do
+      it { should_not be_installed }
+    end
+
+    describe package('python-virtualenv') do
+      it { should be_installed }
+    end
+
+    describe yumrepo('epel') do
+      it { should_not be_installed }
     end
   end
 end
