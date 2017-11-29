@@ -3,6 +3,8 @@
 # This class is called from the main ephemeris class for install.
 #
 class ephemeris::install {
+  assert_private('ephemeris::install is a private class')
+
   if $ephemeris::manage_python {
     class { 'python':
       dev             => $ephemeris::manage_python_dev,
