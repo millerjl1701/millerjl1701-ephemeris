@@ -1,6 +1,6 @@
 {
   "name": "millerjl1701-ephemeris",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "millerjl1701",
   "summary": "Puppet module for managing installing/using Ephemeris with Galaxy.",
   "license": "Apache-2.0",
