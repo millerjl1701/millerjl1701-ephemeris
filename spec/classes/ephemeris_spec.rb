@@ -34,6 +34,96 @@ describe 'ephemeris' do
             'mode'   => '0750',
           ) }
         end
+
+        context 'ephemeris class with manage_python set to false' do
+          let(:params){
+            {
+              :manage_python => false,
+            }
+          }
+
+          it { is_expected.to contain_package('python') }
+        end
+
+        context 'ephemeris class with manage_python_dev set to absent' do
+          let(:params){
+            {
+              :manage_python_dev => 'absent',
+            }
+          }
+
+          it { is_expected.to contain_class('python').with_dev('absent') }
+        end
+
+        context 'ephemeris class with manage_python_use_epel set to false' do
+          let(:params){
+            {
+              :manage_python_use_epel => false,
+            }
+          }
+
+          it { is_expected.to contain_class('python').with_use_epel(false) }
+        end
+
+        context 'ephemeris class with manage_python_virtualenv set to absent' do
+          let(:params){
+            {
+              :manage_python_virtualenv => 'absent',
+            }
+          }
+
+          it { is_expected.to contain_class('python').with_virtualenv('absent') }
+        end
+
+        context 'ephemeris class with virtualenv_dir set to /foo/bar' do
+          let(:params){
+            {
+              :virtualenv_dir => '/foo/bar',
+            }
+          }
+
+          it { is_expected.to contain_python__virtualenv('/foo/bar') }
+        end
+
+        context 'ephemeris class with virtualenv_ensure set to absent' do
+          let(:params){
+            {
+              :virtualenv_ensure => 'absent',
+            }
+          }
+
+          it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_ensure('absent') }
+        end
+
+        context 'ephemeris class with virtualenv_group set to foo' do
+          let(:params){
+            {
+              :virtualenv_group => 'foo',
+            }
+          }
+
+          it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_group('foo') }
+        end
+
+        context 'ephemeris class with virtualenv_mode set to 0770' do
+          let(:params){
+            {
+              :virtualenv_mode => '0770',
+            }
+          }
+
+          it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_mode('0770') }
+        end
+
+        context 'ephemeris class with virtualenv_owner set to bar' do
+          let(:params){
+            {
+              :virtualenv_owner => 'bar',
+            }
+          }
+
+          it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_owner('bar') }
+        end
       end
     end
   end
