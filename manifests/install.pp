@@ -1,6 +1,6 @@
 # @api private
 #
-# This class is called from the main ephemeris class for install.
+# This class manages the installion of python, pip, python-devel, and virtualenv.
 #
 class ephemeris::install {
   assert_private('ephemeris::install is a private class')

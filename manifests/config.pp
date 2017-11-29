@@ -1,6 +1,6 @@
 # @api private
 #
-# This class is called from ephemeris for service config.
+# Class that configures the ephemeris virtualenv by installing pip packages.
 #
 class ephemeris::config {
   assert_private('ephemeris::config is a private class')

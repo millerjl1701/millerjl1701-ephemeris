@@ -1,10 +1,23 @@
 # Class: ephemeris
 # ===========================
 #
-# Main class that includes all other classes for the ephemeris module.
+# Main class that includes all other classes for the management of a python virtual environment for ephemeris.
+#
+# @summary Main class that includes all other classes for the management of a python virtual environment for ephemeris.
+#
+# @example
+#   include ephemeris
+#
+# @example
+#   class { 'ephemeris':
+#     virtualenv_dir   => '/opt/galaxy/ephemeris',
+#     virtualenv_group => 'galaxy',
+#     virtualenv_owner => 'galaxy',
+#     virtualenv_mode  => '0775',
+#   }
 #
 # @param manage_python Whether or not to manage the installation of python, python-devel, pip, and virtualenv.
-# @param manage_python_dev Whether the python class should have python-devel package as absent or present.
+# @param manage_python_dev Whether the python class should have the python-devel package as absent or present.
 # @param manage_python_use_epel Whether or not the python class uses EPEL for installation of packages.
 # @param manage_python_virtualenv Whether the python class should have the virtualenv package as absent or present.
 # @param virtualenv_dir Path for where the ephemeris virtualenv should be created.

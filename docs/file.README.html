@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-ephemeris">ephemeris</h1>
+
+<p>master branch: <a
+href="http://travis-ci.org/millerjl1701/millerjl1701-ephemeris"><img
+src="https://secure.travis-ci.org/millerjl1701/millerjl1701-ephemeris.png?branch=master"></a></p>
+
+<h4 id="label-Table+of+Contents">Table of Contents</h4>
+<ol><li>
+<p><a href="#module-description">Module Description - What the module does and
+why it is useful</a></p>
+</li><li>
+<p><a href="#setup">Setup - The basics of getting started with ephemeris</a></p>
+<ul><li>
+<p><a href="#what-ephemeris-affects">What ephemeris affects</a></p>
+</li><li>
+<p><a href="#setup-requirements">Setup requirements</a></p>
+</li><li>
+<p><a href="#beginning-with-ephemeris">Beginning with ephemeris</a></p>
+</li></ul>
+</li><li>
+<p><a href="#usage">Usage - Configuration options and additional
+functionality</a></p>
+</li><li>
+<p><a href="#reference">Reference - An under-the-hood peek at what the module
+is doing and how</a></p>
+</li><li>
+<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+</li><li>
+<p><a href="#development">Development - Guide for contributing to the
+module</a></p>
+</li></ol>
+
+<h2 id="label-Module+Description">Module Description</h2>
+
+<p>This module manages the installation and configuration of ephemeris.</p>
+
+<p>Ephemeris is a python library and set of scripts used for mananging Galaxy
+plugins- tools, index data, and workflows.</p>
+<ul><li>
+<p><a href="https://github.com/galaxyproject/ephemeris">Ephemeris GitHub Code
+Repository</a></p>
+</li><li>
+<p><a href="https://ephemeris.readthedocs.io/en/latest/readme.html">Ephemeris
+Documentation</a></p>
+</li></ul>
+
+<p>Galaxy is an open, web-based platform for accessible, reproducible, and
+transparent computational biomedical research.</p>
+<ul><li>
+<p><a href="https://galaxyproject.org">Galaxy Project Web Site</a></p>
+</li><li>
+<p><a href="https://galaxyproject.org/docs/">Galaxy Documentation</a></p>
+</li><li>
+<p><a href="https://github.com/galaxyproject/galaxy">Galaxy GitHub Code
+Repository</a></p>
+</li></ul>
+
+<p>The ephemeris puppet module defaults are such that it will install a
+virtualenv in the location /root/ephemeris for the root user; however, this
+is not the anticipated use case for the module. It is more likely to be
+included on a workstation for a unprivileged user or on a Galaxy server as
+the galaxy user. Please see the Usage section below for examples.</p>
+
+<h2 id="label-Setup">Setup</h2>
+
+<h3 id="label-What+ephemeris+affects">What ephemeris affects</h3>
+<ul><li>
+<p>Creation of a python virtual environment</p>
+</li><li>
+<p>Installation of necessary pip packages into the python virtual environment.</p>
+</li></ul>
+
+<h3 id="label-Setup+Requirements">Setup Requirements</h3>
+
+<p>This module sets up python 2.7 for use in a virtualenv leveraging the
+stankevich/python puppet module. As such, this module will not work with a
+different module either named python in your modules directory or with an
+other named module whose purpose is to manage python.</p>
+
+<p>The stahnma/epel puppet module is a dependency of the stankevich/python
+puppet module and should be included in your puppet environment if you want
+the stankevich/python puppet module to manage epel as well. See the
+examples below for how to disable the stankevich/python puppet module from
+managing epel for installing pip.</p>
+
+<h3 id="label-Beginning+with+ephemeris">Beginning with ephemeris</h3>
+
+<p><code>include ephemeris</code> will install and configure ephemeris into a
+virtualenv for root in the directory /root/ephemeris. This is likely not
+the typical use case for this module as it is more likely to use ephemeris
+on a workstation as an unprivileged user or on a Galaxy server as the
+galaxy user.</p>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>All parameters to the main class can be passed via puppet code or hiera.</p>
+
+<p>Some examples are presented below showing the purpose of some of the
+parameters of classes of the module.</p>
+
+<h3 id="label-Install+ephemeris+into+a+python+virtual+environment+for+use+by+the+Galaxy+user+account">Install ephemeris into a python virtual environment for use by the Galaxy user account</h3>
+
+<pre class="code ruby"><code class="ruby">class { &#39;ephemeris&#39;:
+  virtualenv_dir   =&gt; &#39;/opt/galaxy/ephemeris&#39;,
+  virtualenv_group =&gt; &#39;galaxy&#39;,
+  virtualenv_owner =&gt; &#39;galaxy&#39;,
+  virtualenv_mode  =&gt; &#39;0775&#39;,
+}</code></pre>
+
+<p>This example assumes that the galaxy user/group already exists on the
+system via another puppet module, a node manifest or hiera data, or some
+other means.</p>
+
+<h3 id="label-Install+ephemeris+into+a+python+virtual+environment+for+use+by+the+Galaxy+user+account+while+not+using+EPEL+for+the+pip+package">Install ephemeris into a python virtual environment for use by the Galaxy user account while not using EPEL for the pip package</h3>
+
+<pre class="code ruby"><code class="ruby">class { &#39;ephemeris&#39;:
+  manage_python_use_epel =&gt; false,
+  virtualenv_dir         =&gt; &#39;/opt/galaxy/ephemeris&#39;,
+  virtualenv_group       =&gt; &#39;galaxy&#39;,
+  virtualenv_owner       =&gt; &#39;galaxy&#39;,
+  virtualenv_mode        =&gt; &#39;0775&#39;,
+}</code></pre>
+
+<p>In order for the stankevich/python puppet module to install pip on RedHat
+or CentOS systems, it by default also manages the installation of epel. If
+epel is managed via some other means or if the pip package is availble in a
+different repository, this behavior will need to be disabled by passing the
+manage_python_use_epel parameter as falses.</p>
+
+<p>This example assumes that the galaxy user/group already exists on the
+system via another puppet module, a node manifest or hiera data, or some
+other means.</p>
+
+<h2 id="label-Reference">Reference</h2>
+
+<p>Generated puppet strings documentation with examples is available from <a
+href="https://millerjl1701.github.io/millerjl1701-ephemeris">millerjl1701.github.io/millerjl1701-ephemeris</a>.</p>
+
+<p>The puppet strings documentation is also included in the /docs folder.</p>
+
+<h3 id="label-Public+Classes">Public Classes</h3>
+<ul><li>
+<p>ephemeris: Main class which installs and configures the ephemeris
+virtualenv. Parameters may be passed via class declaration or hiera.</p>
+</li></ul>
+
+<h3 id="label-Private+Classes">Private Classes</h3>
+<ul><li>
+<p>ephemeris::config: Class that configures the ephemeris virtualenv by
+installing pip packages.</p>
+</li><li>
+<p>ephemeris::install: Class that manages the installion of python, pip,
+python-devel, and virtualenv.</p>
+</li></ul>
+
+<h3 id="label-Parameters">Parameters</h3>
+
+<p>The ephemeris::init class has the following parameters:</p>
+
+<pre class="code ruby"><code class="ruby">Boolean                   $manage_python            = true,
+String                    $manage_python_dev        = &#39;present&#39;,
+Boolean                   $manage_python_use_epel   = true,
+String                    $manage_python_virtualenv = &#39;present&#39;,
+Stdlib::Absolutepath      $virtualenv_dir           = &#39;/root/ephemeris&#39;,
+Enum[&#39;present&#39;, &#39;absent&#39;] $virtualenv_ensure        = &#39;present&#39;,
+String                    $virtualenv_group         = &#39;root&#39;,
+String                    $virtualenv_mode          = &#39;0750&#39;,
+String                    $virtualenv_owner         = &#39;root&#39;,
+Array                     $virtualenv_requirements  = [ &#39;ephemeris&#39;, &#39;bioblend&#39;, ],</code></pre>
+
+<h2 id="label-Limitations">Limitations</h2>
+
+<p>The current version of Galaxy requires python 2.7. While ephemeris does not
+have this hard requirement, this module will be designed to setup that
+python version leveraging the stankevich/python puppet module. As such,
+this module will not work with a different module named python in your
+modules directory.</p>
+
+<p>This module is currently supported on RHEL/CentOS 7. Support for
+RHEL/CentOS 6 as well as ubuntu/debian distributions will be forthcoming.
+Additionally, tasks will be developed to leverage the script capabilities
+of the ephemeris virtual environment that can be included in tasks and
+plans in a puppet module that manages Galaxy.</p>
+
+<h2 id="label-Development">Development</h2>
+
+<p>Please see the <a href="CONTRIBUTING.md">CONTRIBUTING document</a> for
+information on how to get started developing code and submit a pull request
+for this module. While written in an opinionated fashion at the start, over
+time this can become less and less the case.</p>
+
+<h3 id="label-Contributors">Contributors</h3>
+
+<p>To see who is involved with this module, see the <a
+href="https://github.com/millerjl1701/millerjl1701-ephemeris/graphs/contributors">GitHub
+list of contributors</a> or the <a href="CONTRIBUTORS">CONTRIBUTORS
+document</a>.</p>
+</div></div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>
