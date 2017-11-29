@@ -28,11 +28,18 @@ class ephemeris (
   ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {
-      contain ephemeris::install
-      contain ephemeris::config
+      case $::operatingsystemmajrelease {
+        '7': {
+            contain ephemeris::install
+            contain ephemeris::config
 
-      Class['ephemeris::install']
-      -> Class['ephemeris::config']
+            Class['ephemeris::install']
+            -> Class['ephemeris::config']
+          }
+        default: {
+          fail("${::operatingsystem} ${::operatingsystemmajrelease} not supported")
+        }
+      }
     }
     default: {
       fail("${::operatingsystem} not supported")
