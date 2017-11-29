@@ -8,9 +8,12 @@
 # @param package_name Specifies the name of the package to install. Default value: 'ephemeris'.
 #
 class ephemeris (
-  Boolean     $manage_python = true,
-  String      $package_ensure = 'present',
-  String      $package_name   = 'ephemeris',
+  Boolean     $manage_python            = true,
+  String      $manage_python_dev        = 'present',
+  Boolean     $manage_python_use_epel   = true,
+  String      $manage_python_virtualenv = 'present',
+  String      $package_ensure           = 'present',
+  String      $package_name             = 'ephemeris',
   ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {

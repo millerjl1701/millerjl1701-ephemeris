@@ -34,7 +34,8 @@ describe 'ephemeris class' do
     end
 
     describe yumrepo('epel') do
-      it { should_not be_installed }
+      it { should exist }
+      it { should be_enabled }
     end
   end
 end

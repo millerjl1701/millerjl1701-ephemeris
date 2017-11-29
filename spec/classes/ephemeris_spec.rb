@@ -9,17 +9,19 @@ describe 'ephemeris' do
         end
 
         context "ephemeris class without any parameters changed from defaults" do
-          #it { is_expected.to compile.with_all_deps }
+          it { is_expected.to compile.with_all_deps }
 
           it { is_expected.to contain_class('ephemeris::install') }
-          #it { expect { is_expected.to contain_class('ephemeris::install') }.to raise_error(Puppet::Error, /please use the stdlib validate_legacy function/) }
           it { is_expected.to contain_class('ephemeris::config') }
           it { is_expected.to contain_class('ephemeris::install').that_comes_before('Class[ephemeris::config]') }
+
+          it { is_expected.to contain_class('epel') }
+          it { is_expected.to contain_yumrepo('epel') }
 
           it { is_expected.to contain_class('python').with(
             'dev'             => 'present',
             'manage_gunicorn' => false,
-            'use_epel'        => false,
+            'use_epel'        => true,
             'virtualenv'      => 'present',
           ) }
 

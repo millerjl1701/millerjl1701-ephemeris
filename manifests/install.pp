@@ -5,10 +5,10 @@
 class ephemeris::install {
   if $ephemeris::manage_python {
     class { 'python':
-      dev             => 'present',
+      dev             => $ephemeris::manage_python_dev,
       manage_gunicorn => false,
-      use_epel        => false,
-      virtualenv      => 'present',
+      use_epel        => $ephemeris::manage_python_use_epel,
+      virtualenv      => $ephemeris::manage_python_virtualenv,
     }
   }
 }

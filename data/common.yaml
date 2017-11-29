@@ -1,4 +1,7 @@
 ---
 
+ephemeris::manage_python: true
+ephemeris::manage_python_dev: 'present'
+ephemeris::manage_python_virtualenv: 'present'
 ephemeris::package_ensure: 'present'
 ephemeris::package_name: 'ephemeris'
