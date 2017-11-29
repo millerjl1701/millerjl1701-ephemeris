@@ -59,5 +59,17 @@ describe 'ephemeris class' do
       it { should contain 'ephemeris' }
       it { should contain 'bioblend' }
     end
+
+    describe file('/root/ephemeris/lib/python2.7/site-packages/ephemeris') do
+      it { should be_directory }
+      it { should be_owned_by 'root' }
+      it { should be_grouped_into 'root' }
+    end
+
+    describe file('/root/ephemeris/lib/python2.7/site-packages/bioblend') do
+      it { should be_directory }
+      it { should be_owned_by 'root' }
+      it { should be_grouped_into 'root' }
+    end
   end
 end

@@ -44,7 +44,21 @@ describe 'ephemeris' do
           ) }
           it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_content(/^ephemeris$/) }
           it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_content(/^bioblend$/) }
+
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').that_comes_before('Python::Requirements[ephemeris_pip_requirements]') }
+
+          it { is_expected.to contain_python__requirements('ephemeris_pip_requirements').with(
+            'requirements'           => '/root/ephemeris/requirements.txt',
+            'virtualenv'             => '/root/ephemeris',
+            'owner'                  => 'root',
+            'group'                  => 'root',
+            'cwd'                    => '/root/ephemeris',
+            'manage_requirements'    => false,
+            'fix_requirements_owner' => true,
+            'log_dir'                => '/root/ephemeris',
+          ) }
         end
+
 
         context 'ephemeris class with manage_python set to false' do
           let(:params){
@@ -95,6 +109,12 @@ describe 'ephemeris' do
 
           it { is_expected.to contain_python__virtualenv('/foo/bar') }
           it { is_expected.to contain_file('/foo/bar/requirements.txt') }
+          it { is_expected.to contain_python__requirements('ephemeris_pip_requirements').with(
+            'requirements' => '/foo/bar/requirements.txt',
+            'virtualenv'   => '/foo/bar',
+            'cwd'          => '/foo/bar',
+            'log_dir'      => '/foo/bar',
+          ) }
         end
 
         context 'ephemeris class with virtualenv_ensure set to absent' do
@@ -116,6 +136,7 @@ describe 'ephemeris' do
 
           it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_group('foo') }
           it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_group('foo') }
+          it { is_expected.to contain_python__requirements('ephemeris_pip_requirements').with_group('foo') }
         end
 
         context 'ephemeris class with virtualenv_mode set to 0770' do
@@ -137,6 +158,7 @@ describe 'ephemeris' do
 
           it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_owner('bar') }
           it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_owner('bar') }
+          it { is_expected.to contain_python__requirements('ephemeris_pip_requirements').with_owner('bar') }
         end
 
         context 'ephemeris class with virtualenv_requirements set to [ foo, bar]' do
