@@ -33,6 +33,17 @@ describe 'ephemeris' do
             'group'  => 'root',
             'mode'   => '0750',
           ) }
+
+          it { is_expected.to contain_python__virtualenv('/root/ephemeris').that_comes_before('File[/root/ephemeris/requirements.txt]') }
+
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with(
+            'ensure' => 'present',
+            'owner' => 'root',
+            'group' => 'root',
+            'mode' => '0644',
+          ) }
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_content(/^ephemeris$/) }
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_content(/^bioblend$/) }
         end
 
         context 'ephemeris class with manage_python set to false' do
@@ -83,6 +94,7 @@ describe 'ephemeris' do
           }
 
           it { is_expected.to contain_python__virtualenv('/foo/bar') }
+          it { is_expected.to contain_file('/foo/bar/requirements.txt') }
         end
 
         context 'ephemeris class with virtualenv_ensure set to absent' do
@@ -103,6 +115,7 @@ describe 'ephemeris' do
           }
 
           it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_group('foo') }
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_group('foo') }
         end
 
         context 'ephemeris class with virtualenv_mode set to 0770' do
@@ -123,6 +136,18 @@ describe 'ephemeris' do
           }
 
           it { is_expected.to contain_python__virtualenv('/root/ephemeris').with_owner('bar') }
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_owner('bar') }
+        end
+
+        context 'ephemeris class with virtualenv_requirements set to [ foo, bar]' do
+          let(:params){
+            {
+              :virtualenv_requirements => [ 'foo', 'bar', ],
+            }
+          }
+
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_content(/^foo$/) }
+          it { is_expected.to contain_file('/root/ephemeris/requirements.txt').with_content(/^bar$/) }
         end
       end
     end
